@@ -2,3 +2,16 @@
     max-width: 1200px;
     margin: 0 auto;
 }
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.menus {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    gap: 20px;
+}

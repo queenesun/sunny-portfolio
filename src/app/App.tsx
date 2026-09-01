@@ -11,10 +11,11 @@ export default function App() {
   return (
     <div className={styles.app}>
       <header>
-        <h1>Sunny's Portfolio</h1>
+        <Link to='/'><h1>Sunny's Portfolio</h1></Link>
+
 
         <nav>
-          <ul>
+          <ul className={styles.menus}>
             <li><Link to='/'>About</Link></li>
             <li><Link to='/skills'>Skills</Link></li>
             <li><Link to='/projects'>Projects</Link></li>
