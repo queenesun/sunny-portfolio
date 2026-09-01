@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
-import { getPosts } from "../shared/api/getPosts"
+// import { getPosts } from "../shared/api/getPosts"
 import { Link } from "react-router-dom"
+import { getPosts } from "../entities/post/api/getPosts"
 
 // 전역 상태 관리
 // - Context API

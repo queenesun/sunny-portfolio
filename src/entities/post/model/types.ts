@@ -5,3 +5,7 @@ export interface Post {
     summary: string
     created_at: string
 }
+
+export interface PostDetail extends Post {
+    content: string
+}
