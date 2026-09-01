@@ -1,6 +1,9 @@
-import { Route, Routes } from 'react-router-dom'
+import { Link, Route, Routes } from 'react-router-dom'
 import styles from './App.module.css'
 import About from '../pages/About'
+import Skills from '../pages/Skills'
+import Projects from '../pages/Projects'
+import Blog from '../pages/Blog'
 
 export default function App() {
 
@@ -9,10 +12,22 @@ export default function App() {
     <div className={styles.app}>
       <header>
         <h1>Sunny's Portfolio</h1>
+
+        <nav>
+          <ul>
+            <li><Link to='/'>About</Link></li>
+            <li><Link to='/skills'>Skills</Link></li>
+            <li><Link to='/projects'>Projects</Link></li>
+            <li><Link to='/blog'>Blog</Link></li>
+          </ul>
+        </nav>
       </header>
 
       <Routes>
         <Route path='/' element={<About />} />
+        <Route path='/skills' element={<Skills />} />
+        <Route path='/projects' element={<Projects />} />
+        <Route path='/blog' element={<Blog />} />
       </Routes>
 
 
