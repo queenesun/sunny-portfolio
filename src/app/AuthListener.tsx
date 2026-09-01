@@ -1,35 +1,27 @@
-import type { Session } from "@supabase/supabase-js";
 import { useEffect } from "react";
-import { setUser } from "../entities/session/model/authSlice";
-import { supabase } from "../shared/api/supabase";
+import { setUser, type User } from "../entities/session/model/authSlice";
 import { useAppDispatch } from "./hooks";
-
-function pickUser(session: Session | null) {
-    if (!session) return null
-    return {
-        id: session.user.id,
-        email: session.user.email ?? ''
-    }
-}
+import { clearToken, getToken } from "../shared/api/token";
+import { api } from "../shared/api/client";
 
 export default function AuthListener() {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        // 앱이 켜질 때 한 번 - 지금 로그인 상태가 뭔지 물어본다
-        supabase.auth.getSession()
-            .then(({ data }) => {
-                dispatch(setUser(pickUser(data.session)))
+        // 1) 토큰이 없으면 물어볼 것도 없다
+        if (!getToken()) {
+            dispatch(setUser(null))
+            return
+        }
+
+        // 2) 토큰이 있으면 서버에 "이거 누구냐"고 묻는다
+        api<User>('/api/auth/me')
+            .then(user => dispatch(setUser(user)))
+            .catch(() => {
+                // 3) 만료됐거나 잘못된 토큰 — 버린다
+                clearToken()
+                dispatch(setUser(null))
             })
-
-        // 그 뒤로는 바뀔 때마다 알려달라고 구독해준다.
-        const { data: listener } = supabase.auth.onAuthStateChange(
-            (_event, session) => {
-                dispatch(setUser(pickUser(session)))
-            }
-        )
-
-        return () => listener.subscription.unsubscribe()
     }, [dispatch])
 
     return null

@@ -5,16 +5,23 @@ import Skills from '../pages/Skills'
 import Projects from '../pages/Projects'
 import Blog from '../pages/Blog'
 import BlogPost from '../pages/BlogPost'
-import { useAppSelector } from './hooks'
-import { supabase } from '../shared/api/supabase'
+import { useAppDispatch, useAppSelector } from './hooks'
 import Login from '../pages/Login'
 import ProtectedRoute from '../pages/ProtectedRoute'
 import MyPage from '../pages/MyPage'
+import { clearToken } from '../shared/api/token'
+import { setUser } from '../entities/session/model/authSlice'
 
 export default function App() {
   const user = useAppSelector(state => state.auth.user)
   const status = useAppSelector(state => state.auth.status)
+  const dispatch = useAppDispatch()
 
+  // 로그아웃 - 서버에 알리지 않는다. 토큰을 버리면 끝
+  function handleLogout() {
+    clearToken()
+    dispatch(setUser(null))
+  }
 
   return (
     <div className={styles.app}>
@@ -36,7 +43,7 @@ export default function App() {
           {status === 'loading' ? null : user ? (
             <>
               <span>{user.email}</span>
-              <button onClick={() => supabase.auth.signOut()}>로그아웃</button>
+              <button onClick={handleLogout}>로그아웃</button>
             </>
           ) : (
             <Link to='/login'>로그인</Link>

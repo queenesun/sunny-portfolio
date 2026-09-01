@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 
-type User = {
-    id: string
+export type User = {
+    id: number // string -> number (백엔드가 숫자 id를 준다)
     email: string
 }
 
