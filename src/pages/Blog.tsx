@@ -2,6 +2,12 @@ import { useQuery } from "@tanstack/react-query"
 import { getPosts } from "../shared/api/getPosts"
 import { Link } from "react-router-dom"
 
+// 전역 상태 관리
+// - Context API
+// - Redux, Redux Toolkit
+// 구현 방법 -> 로그인, 로그아웃 상태 구분
+// - 로그인: id, email 
+
 export default function Blog() {
     const { data: posts, isLoading, error } = useQuery({
         queryKey: ['posts'],
