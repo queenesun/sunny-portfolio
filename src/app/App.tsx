@@ -4,6 +4,7 @@ import About from '../pages/About'
 import Skills from '../pages/Skills'
 import Projects from '../pages/Projects'
 import Blog from '../pages/Blog'
+import BlogPost from '../pages/BlogPost'
 
 export default function App() {
 
@@ -29,6 +30,7 @@ export default function App() {
         <Route path='/skills' element={<Skills />} />
         <Route path='/projects' element={<Projects />} />
         <Route path='/blog' element={<Blog />} />
+        <Route path='/blog/:slug' element={<BlogPost />} /> {/* slug 방식 */}
       </Routes>
 
 
